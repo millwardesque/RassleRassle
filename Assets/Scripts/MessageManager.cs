@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Message {
-    public MonoBehaviour sender;
+    public object sender;
     public string name;
     public object data;
 
-    public Message(MonoBehaviour sender, string name, object data = null) {
+	public Message(object sender, string name, object data = null) {
         this.sender = sender;
         this.name = name;
         this.data = data;
@@ -35,7 +35,7 @@ public class MessageManager {
         }
     }
 
-    public void SendMessage(MonoBehaviour sender, string name, object data = null) {
+	public void SendMessage(object sender, string name, object data = null) {
         Message message = new Message(sender, name, data);
         SendMessage(message);
     }

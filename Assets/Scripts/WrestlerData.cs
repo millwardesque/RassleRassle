@@ -23,4 +23,6 @@ public class WrestlerData : ScriptableObject {
 
     [Range(0f, 1f)]
     public float stamina;
+
+	public WrestlingMoveData[] moves;
 }

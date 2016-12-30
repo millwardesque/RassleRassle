@@ -3,35 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    float m_crowdInterest = 0f;
-    public float CrowdInterest
-    {
-        get { return m_crowdInterest; }
-        set
-        {
-            float oldInterest = m_crowdInterest;
-            m_crowdInterest = value; ;
-            Messenger.SendMessage(this, "OnCrowdInterestChange", (object)m_crowdInterest);
+	Commentary m_commentary;
+	public Commentary MatchCommentary {
+		get { return m_commentary; }
+	}
 
-            if (m_crowdInterest > 5f && oldInterest <= 5f) {
-                Messenger.SendMessage(this, "OnCrowdExcitedChange", "Yes");
-            }
-        }
-    }
+	Crowd m_crowd;
+	public Crowd MatchCrowd {
+		get { return m_crowd; }
+	}
 
-    float m_matchOffense = 0f;
-    public float MatchOffense
-    {
-        get { return m_matchOffense; }
-        set
-        {
-            m_matchOffense = value; ;
-            Messenger.SendMessage(this, "OnOffenseChange", (object)m_matchOffense);
-        }
-    }
-
-    Wrestler m_wrestler1;
-    Wrestler m_wrestler2;
+	WrestlingMatch m_match;
+	public WrestlingMatch Match {
+		get { return m_match; }
+	}
 
     public WrestlerData wrestler1;
     public WrestlerData wrestler2;
@@ -49,37 +34,31 @@ public class GameManager : MonoBehaviour {
         if (Instance == null) {
             Instance = this;
             m_messenger = new MessageManager();
+			m_crowd = GetComponent<Crowd> ();
+			m_commentary = GetComponent<Commentary> ();
         } else {
             Destroy(this.gameObject);
         }
     }
 
     private void Start() {
-        m_wrestler1 = GameObject.Instantiate<Wrestler>(wrestlerPrefab);
-        m_wrestler1.InitializeData(wrestler1);
+        Wrestler matchWrestler1 = GameObject.Instantiate<Wrestler>(wrestlerPrefab);
+		matchWrestler1.InitializeData(wrestler1);
 
-        m_wrestler2 = GameObject.Instantiate<Wrestler>(wrestlerPrefab);
-        m_wrestler2.InitializeData(wrestler2);
+		Wrestler matchWrestler2 = GameObject.Instantiate<Wrestler>(wrestlerPrefab);
+		matchWrestler2.InitializeData(wrestler2);
 
-        CrowdInterest = 0f;
-        MatchOffense = 0f;
-        m_wrestler1.StartMatch(1);
-        m_wrestler2.StartMatch(2);
+		m_match = new WrestlingMatch (matchWrestler1, matchWrestler2);
+		m_match.StartMatch ();
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            CrowdInterest += 1.0f;
-        }
-        else if(Input.GetKeyDown(KeyCode.DownArrow)) {
-            CrowdInterest -= 1.0f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            MatchOffense += 1.0f;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            MatchOffense -= 1.0f;
-        }
+		if (Input.GetKeyDown (KeyCode.M)) {
+			m_match.RunTurn (new MatchTurn (m_match, m_match.Wrestler1, m_match.Wrestler2, m_match.Wrestler1.Moves [0], m_match.Wrestler2.Moves [0]));
+		}
     }
+
+	public void OnSubmitTurn() {
+		m_match.SetNextTurn ();
+	}
 }
