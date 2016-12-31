@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WrestlerPosition {
+	Standing,
+	RunningOnRopes,
+	OnMat,
+	InTurnbuckle,
+	OnTurnbuckle
+};
+
 public class Wrestler : MonoBehaviour {
     int m_wrestlerNumber;	// Wrestler's 'number' in the current match.
 	public int WrestlerNumber {
@@ -14,6 +22,15 @@ public class Wrestler : MonoBehaviour {
     float m_technique;
     float m_selling;
     float m_stamina;
+
+	WrestlerPosition m_position = WrestlerPosition.Standing;
+	public WrestlerPosition Position {
+		get { return m_position; }
+		set {
+			m_position = value;
+			GameManager.Instance.Messenger.SendMessage(this, "OnWrestler" + m_wrestlerNumber + "PositionChange", m_position);
+		}
+	}
 
 	string m_name;
 	public string WrestlerName
@@ -62,12 +79,15 @@ public class Wrestler : MonoBehaviour {
 			newMove.InitializeData (move);
 			m_moves.Add (newMove);
 		}
+
+		m_position = WrestlerPosition.Standing;
     }
 
     public void StartMatch(int wrestlerNumber) {
         m_wrestlerNumber = wrestlerNumber;
 
         CurrentStamina = 100f;
-        WrestlerName = WrestlerName;
+		WrestlerName = WrestlerName;	// Used to trigger a UI refresh.
+		Position = WrestlerPosition.Standing;
     }
 }

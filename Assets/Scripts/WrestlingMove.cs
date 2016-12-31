@@ -25,10 +25,39 @@ public class WrestlingMove {
 		get { return m_isOffensive; }
 	}
 
+	bool m_changePerformerEndingPosition;
+	public bool ChangePerformerEndingPosition {
+		get { return m_changePerformerEndingPosition; }
+		set { m_changePerformerEndingPosition = value; }
+	}
+
+	WrestlerPosition m_performerEndingPosition;
+	public WrestlerPosition PerformerEndingPosition {
+		get { return m_performerEndingPosition; }
+		set { m_performerEndingPosition = value; }
+	}
+
+	bool m_changeRecipientEndingPosition;
+	public bool ChangeRecipientEndingPosition {
+		get { return m_changeRecipientEndingPosition; }
+		set { m_changeRecipientEndingPosition = value; }
+	}
+
+	WrestlerPosition m_recipientEndingPosition;
+	public WrestlerPosition RecipientEndingPosition {
+		get { return m_recipientEndingPosition; }
+		set { m_recipientEndingPosition = value; }
+	}
+
     public void InitializeData(WrestlingMoveData data) {
         MoveName = data.moveName;
         m_staminaChange = data.staminaChange;
         m_crowdChange = data.crowdChange;
 		m_isOffensive = data.isOffensive;
+
+		m_changePerformerEndingPosition = data.changePerformerEndingPosition;
+		m_performerEndingPosition = data.performerEndingPosition;
+		m_changeRecipientEndingPosition = data.changeRecipientEndingPosition;
+		m_recipientEndingPosition = data.recipientEndingPosition;
     }
 }

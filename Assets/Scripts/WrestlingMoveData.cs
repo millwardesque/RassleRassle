@@ -9,4 +9,10 @@ public class WrestlingMoveData : ScriptableObject {
     public float staminaChange;
     public float crowdChange;
     public bool isOffensive;
+
+	public bool changePerformerEndingPosition;
+	public WrestlerPosition performerEndingPosition;
+
+	public bool changeRecipientEndingPosition;
+	public WrestlerPosition recipientEndingPosition;
 }

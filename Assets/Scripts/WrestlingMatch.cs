@@ -23,8 +23,10 @@ public class WrestlingMatch
 		get { return m_matchOffense; }
 		set
 		{
-			m_matchOffense = value; ;
-			GameManager.Instance.Messenger.SendMessage(this, "OnOffenseChange", (object)m_matchOffense);
+			m_matchOffense = value;
+
+			string output = (m_matchOffense < 0f ? m_wrestler1.WrestlerName : (m_matchOffense > 0f ? m_wrestler2.WrestlerName : "Even")) + " (" + m_matchOffense + ")";
+			GameManager.Instance.Messenger.SendMessage(this, "OnOffenseChange", output);
 		}
 	}
 
