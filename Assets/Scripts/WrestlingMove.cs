@@ -25,28 +25,22 @@ public class WrestlingMove {
 		get { return m_isOffensive; }
 	}
 
-	bool m_changePerformerEndingPosition;
-	public bool ChangePerformerEndingPosition {
-		get { return m_changePerformerEndingPosition; }
-		set { m_changePerformerEndingPosition = value; }
+	WrestlerPosition m_startingPosition;
+	public WrestlerPosition StartingPosition {
+		get { return m_startingPosition; }
+		set { m_startingPosition = value; }
 	}
 
-	WrestlerPosition m_performerEndingPosition;
-	public WrestlerPosition PerformerEndingPosition {
-		get { return m_performerEndingPosition; }
-		set { m_performerEndingPosition = value; }
+	WrestlerPosition m_opponentStartingPosition;
+	public WrestlerPosition OpponentStartingPosition {
+		get { return m_opponentStartingPosition; }
+		set { m_opponentStartingPosition = value; }
 	}
 
-	bool m_changeRecipientEndingPosition;
-	public bool ChangeRecipientEndingPosition {
-		get { return m_changeRecipientEndingPosition; }
-		set { m_changeRecipientEndingPosition = value; }
-	}
-
-	WrestlerPosition m_recipientEndingPosition;
-	public WrestlerPosition RecipientEndingPosition {
-		get { return m_recipientEndingPosition; }
-		set { m_recipientEndingPosition = value; }
+	WrestlerPosition m_endingPosition;
+	public WrestlerPosition EndingPosition {
+		get { return m_endingPosition; }
+		set { m_endingPosition = value; }
 	}
 
     public void InitializeData(WrestlingMoveData data) {
@@ -55,9 +49,8 @@ public class WrestlingMove {
         m_crowdChange = data.crowdChange;
 		m_isOffensive = data.isOffensive;
 
-		m_changePerformerEndingPosition = data.changePerformerEndingPosition;
-		m_performerEndingPosition = data.performerEndingPosition;
-		m_changeRecipientEndingPosition = data.changeRecipientEndingPosition;
-		m_recipientEndingPosition = data.recipientEndingPosition;
+		m_startingPosition = data.startingPosition;
+		m_opponentStartingPosition = data.opponentStartingPosition;
+		m_endingPosition = data.endingPosition;
     }
 }

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum WrestlerPosition {
+	Any,
+	Same,
 	Standing,
 	RunningOnRopes,
 	OnMat,
 	InTurnbuckle,
-	OnTurnbuckle
+	OnTurnbuckle,
 };
 
 public class Wrestler : MonoBehaviour {
@@ -79,6 +81,14 @@ public class Wrestler : MonoBehaviour {
 			newMove.InitializeData (move);
 			m_moves.Add (newMove);
 		}
+		if (m_moves.Count == 0) {
+			WrestlingMoveData[] allMoves = Resources.LoadAll<WrestlingMoveData> ("Moves");
+			foreach (WrestlingMoveData move in allMoves) {
+				WrestlingMove newMove = new WrestlingMove();
+				newMove.InitializeData (move);
+				m_moves.Add (newMove);
+			}
+		}
 
 		m_position = WrestlerPosition.Standing;
     }
@@ -90,4 +100,18 @@ public class Wrestler : MonoBehaviour {
 		WrestlerName = WrestlerName;	// Used to trigger a UI refresh.
 		Position = WrestlerPosition.Standing;
     }
+
+	public List<WrestlingMove> GetMoves(Wrestler opponent) {
+		List<WrestlingMove> moves = new List<WrestlingMove> ();
+		foreach (WrestlingMove move in m_moves) {
+			bool wrestlerIsInRightPosition = move.StartingPosition == WrestlerPosition.Any || move.StartingPosition == WrestlerPosition.Same || move.StartingPosition == m_position;
+			bool opponentIsInRightPosition = move.OpponentStartingPosition == WrestlerPosition.Any || move.OpponentStartingPosition == WrestlerPosition.Same || move.OpponentStartingPosition == opponent.Position;
+
+			if (wrestlerIsInRightPosition && opponentIsInRightPosition) {
+				moves.Add (move);
+			}
+		}
+
+	return moves;
+	}
 }

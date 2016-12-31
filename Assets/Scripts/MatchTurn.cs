@@ -34,18 +34,12 @@ public class MatchTurn
 		m_wrestler1.CurrentStamina += m_move1.StaminaChange;
 		m_wrestler2.CurrentStamina += m_move2.StaminaChange;
 
-		if (m_move1.ChangePerformerEndingPosition) {
-			m_wrestler1.Position = m_move1.PerformerEndingPosition;
-		}
-		if (m_move1.ChangeRecipientEndingPosition) {
-			m_wrestler2.Position = m_move1.RecipientEndingPosition;
+		if (m_move1.EndingPosition != WrestlerPosition.Same && m_move1.EndingPosition != WrestlerPosition.Any) {
+			m_wrestler1.Position = m_move1.EndingPosition;
 		}
 
-		if (m_move2.ChangePerformerEndingPosition) {
-			m_wrestler2.Position = m_move2.PerformerEndingPosition;
-		}
-		if (m_move2.ChangeRecipientEndingPosition) {
-			m_wrestler1.Position = m_move2.RecipientEndingPosition;
+		if (m_move2.EndingPosition != WrestlerPosition.Same && m_move2.EndingPosition != WrestlerPosition.Any) {
+			m_wrestler2.Position = m_move2.EndingPosition;
 		}
 
 		if (m_move1.IsOffensive && !m_move2.IsOffensive) {

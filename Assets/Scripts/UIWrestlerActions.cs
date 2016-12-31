@@ -40,10 +40,10 @@ public class UIWrestlerActions : MonoBehaviour {
 		WrestlingMatch match = message.data as WrestlingMatch;
 		if (match != null) {
 			if (match.Wrestler1.WrestlerNumber == wrestlerNumber) {
-				CreateMoveList (match.Wrestler1, match.Wrestler1.Moves);
+				CreateMoveList (match.Wrestler1, match.Wrestler1.GetMoves(match.Wrestler2));
 			}
 			else if (match.Wrestler2.WrestlerNumber == wrestlerNumber) {
-				CreateMoveList (match.Wrestler2, match.Wrestler2.Moves);
+				CreateMoveList (match.Wrestler2, match.Wrestler2.GetMoves(match.Wrestler1));
 			}
 		} else {
 			Debug.LogError ("TurnEnded called with null match!");

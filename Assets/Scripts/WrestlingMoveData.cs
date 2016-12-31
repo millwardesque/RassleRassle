@@ -10,9 +10,7 @@ public class WrestlingMoveData : ScriptableObject {
     public float crowdChange;
     public bool isOffensive;
 
-	public bool changePerformerEndingPosition;
-	public WrestlerPosition performerEndingPosition;
-
-	public bool changeRecipientEndingPosition;
-	public WrestlerPosition recipientEndingPosition;
+	public WrestlerPosition startingPosition = WrestlerPosition.Any;
+	public WrestlerPosition opponentStartingPosition = WrestlerPosition.Any;
+	public WrestlerPosition endingPosition = WrestlerPosition.Same;
 }
