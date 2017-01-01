@@ -51,14 +51,4 @@ public class GameManager : MonoBehaviour {
 		m_match = new WrestlingMatch (matchWrestler1, matchWrestler2);
 		m_match.StartMatch ();
     }
-
-    private void Update() {
-		if (Input.GetKeyDown (KeyCode.M)) {
-			m_match.RunTurn (new MatchTurn (m_match, m_match.Wrestler1, m_match.Wrestler2, m_match.Wrestler1.Moves [0], m_match.Wrestler2.Moves [0]));
-		}
-    }
-
-	public void OnSubmitTurn() {
-		m_match.SetNextTurn ();
-	}
 }

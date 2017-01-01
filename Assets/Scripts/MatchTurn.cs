@@ -4,17 +4,15 @@ using System.Collections;
 public class MatchTurn
 {
 	WrestlingMatch m_match;
-	Wrestler m_wrestler1;
-	Wrestler m_wrestler2;
-	WrestlingMove m_move1;
-	WrestlingMove m_move2;
+	Wrestler m_performer;
+	Wrestler m_opponent;
+	WrestlingMove m_move;
 
-	public MatchTurn(WrestlingMatch match, Wrestler wrestler1, Wrestler wrestler2, WrestlingMove move1, WrestlingMove move2) {
+	public MatchTurn(WrestlingMatch match, Wrestler performer, Wrestler opponent, WrestlingMove move) {
 		m_match = match;
-		m_wrestler1 = wrestler1;
-		m_wrestler2 = wrestler2;
-		m_move1 = move1;
-		m_move2 = move2;
+		m_performer = performer;
+		m_opponent = opponent;
+		m_move = move;
 	}
 
 	public void ExecuteMove() {
@@ -24,33 +22,25 @@ public class MatchTurn
 		matchCrowd.CrowdInterest -= matchCrowd.interestDecay;
 
 		float crowdInterestMultiplier = matchCrowd.IsExcited() ? 1.5f : 1f;
-		matchCrowd.CrowdInterest += crowdInterestMultiplier * (m_move1.CrowdChange + m_move2.CrowdChange);
+		matchCrowd.CrowdInterest += crowdInterestMultiplier * (m_move.CrowdChange);
 
 		if (matchCrowd.idealMatchLength < m_match.Turns.Count) {
 			matchCommentary.AddMessage ("The crowd is getting restless");
 			matchCrowd.CrowdInterest--;
 		}
 	
-		m_wrestler1.CurrentStamina += m_move1.StaminaChange;
-		m_wrestler2.CurrentStamina += m_move2.StaminaChange;
+		m_performer.CurrentStamina += m_move.StaminaChange;
 
-		if (m_move1.EndingPosition != WrestlerPosition.Same && m_move1.EndingPosition != WrestlerPosition.Any) {
-			m_wrestler1.Position = m_move1.EndingPosition;
+		if (m_move.EndingPosition != WrestlerPosition.Same && m_move.EndingPosition != WrestlerPosition.Any) {
+			m_performer.Position = m_move.EndingPosition;
 		}
 
-		if (m_move2.EndingPosition != WrestlerPosition.Same && m_move2.EndingPosition != WrestlerPosition.Any) {
-			m_wrestler2.Position = m_move2.EndingPosition;
-		}
-
-		if (m_move1.IsOffensive && !m_move2.IsOffensive) {
+		if (m_move.IsOffensive) {
 			m_match.MatchOffense--;
-		} else if (!m_move1.IsOffensive && m_move2.IsOffensive) {
-			m_match.MatchOffense++;
 		}
 
 
-		matchCommentary.AddMessage (m_wrestler1.WrestlerName + ": " + m_move1.MoveName);
-		matchCommentary.AddMessage (m_wrestler2.WrestlerName + ": " + m_move2.MoveName);
+		matchCommentary.AddMessage (m_performer.WrestlerName + ": " + m_move.MoveName);
 	}
 }
 
