@@ -36,7 +36,12 @@ public class MatchTurn
 		}
 
 		if (m_move.IsOffensive) {
-			m_match.MatchOffense--;
+			if (m_match.CurrentWrestler == m_match.Wrestler1) {
+				m_match.MatchOffense--;
+			} else {
+				m_match.MatchOffense++;
+			}
+
 		}
 
 

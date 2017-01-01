@@ -10,6 +10,7 @@ public enum WrestlerPosition {
 	OnMat,
 	InTurnbuckle,
 	OnTurnbuckle,
+	Pinning,
 };
 
 public class Wrestler : MonoBehaviour {
