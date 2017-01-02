@@ -11,6 +11,7 @@ public enum WrestlerPosition {
 	InTurnbuckle,
 	OnTurnbuckle,
 	Pinning,
+	Grappling,
 };
 
 public class Wrestler : MonoBehaviour {

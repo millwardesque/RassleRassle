@@ -39,6 +39,10 @@ public class MatchTurn
 			m_performer.Position = m_move.EndingPosition;
 		}
 
+		if (m_move.OpponentEndingPosition != WrestlerPosition.Same && m_move.OpponentEndingPosition != WrestlerPosition.Any) {
+			m_opponent.Position = m_move.OpponentEndingPosition;
+		}
+
 		if (m_move.IsOffensive) {
 			if (m_match.CurrentWrestler == m_match.Wrestler1) {
 				m_match.MatchOffense--;

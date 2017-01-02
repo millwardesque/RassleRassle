@@ -43,6 +43,12 @@ public class WrestlingMove {
 		set { m_endingPosition = value; }
 	}
 
+	WrestlerPosition m_opponentEndingPosition;
+	public WrestlerPosition OpponentEndingPosition {
+		get { return m_opponentEndingPosition; }
+		set { m_opponentEndingPosition = value; }
+	}
+
 	MovePrerequisite[] m_prerequisiteEvaluators;
 	public MovePrerequisite[] PrerequisiteEvaluators {
 		get { return m_prerequisiteEvaluators; }
@@ -58,6 +64,7 @@ public class WrestlingMove {
 		m_startingPosition = data.startingPosition;
 		m_opponentStartingPosition = data.opponentStartingPosition;
 		m_endingPosition = data.endingPosition;
+		m_opponentEndingPosition = data.opponentEndingPosition;
 		m_prerequisiteEvaluators = data.prerequisiteEvaluators;
     }
 }

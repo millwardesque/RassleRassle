@@ -13,6 +13,7 @@ public class WrestlingMoveData : ScriptableObject {
 	public WrestlerPosition startingPosition = WrestlerPosition.Any;
 	public WrestlerPosition opponentStartingPosition = WrestlerPosition.Any;
 	public WrestlerPosition endingPosition = WrestlerPosition.Same;
+	public WrestlerPosition opponentEndingPosition = WrestlerPosition.Same;
 
 	public MovePrerequisite[] prerequisiteEvaluators;
 }
