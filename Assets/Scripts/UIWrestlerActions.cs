@@ -14,6 +14,12 @@ public class UIWrestlerActions : MonoBehaviour {
 
 	public void CreateMoveList(Wrestler wrestler, List<WrestlingMove> moves, bool makeInactive) {
 		ClearMoveList ();
+		moves.Sort (delegate (WrestlingMove x, WrestlingMove y) {
+			if (x.MoveName == null && y.MoveName == null) return 0;
+			else if (x.MoveName == null) return -1;
+			else if (y.MoveName == null) return 1;
+			else return x.MoveName.CompareTo(y.MoveName);
+		});
 
 		foreach (WrestlingMove move in moves) {
 			Button moveButton = GameObject.Instantiate<Button> (buttonPrefab, this.transform);
@@ -41,10 +47,10 @@ public class UIWrestlerActions : MonoBehaviour {
 		bool wrestler1IsActive = (match.Turns.Count == 0 || match.CurrentWrestler == match.Wrestler2);
 		if (match != null) {
 			if (match.Wrestler1.WrestlerNumber == wrestlerNumber) {
-				CreateMoveList (match.Wrestler1, match.Wrestler1.GetMoves(match.Wrestler2), !wrestler1IsActive);
+				CreateMoveList (match.Wrestler1, match.Wrestler1.GetMoves(match, match.Wrestler2), !wrestler1IsActive);
 			}
 			else if (match.Wrestler2.WrestlerNumber == wrestlerNumber) {
-				CreateMoveList (match.Wrestler2, match.Wrestler2.GetMoves(match.Wrestler1), wrestler1IsActive);
+				CreateMoveList (match.Wrestler2, match.Wrestler2.GetMoves(match, match.Wrestler1), wrestler1IsActive);
 			}
 		} else {
 			Debug.LogError ("TurnEnded called with null match!");

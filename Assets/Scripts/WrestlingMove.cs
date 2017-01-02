@@ -43,6 +43,12 @@ public class WrestlingMove {
 		set { m_endingPosition = value; }
 	}
 
+	MovePrerequisite[] m_prerequisiteEvaluators;
+	public MovePrerequisite[] PrerequisiteEvaluators {
+		get { return m_prerequisiteEvaluators; }
+		set { m_prerequisiteEvaluators = value; }
+	}
+
     public void InitializeData(WrestlingMoveData data) {
         MoveName = data.moveName;
         m_staminaChange = data.staminaChange;
@@ -52,5 +58,6 @@ public class WrestlingMove {
 		m_startingPosition = data.startingPosition;
 		m_opponentStartingPosition = data.opponentStartingPosition;
 		m_endingPosition = data.endingPosition;
+		m_prerequisiteEvaluators = data.prerequisiteEvaluators;
     }
 }

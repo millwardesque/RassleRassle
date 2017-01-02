@@ -6,7 +6,11 @@ public class MatchTurn
 	WrestlingMatch m_match;
 	Wrestler m_performer;
 	Wrestler m_opponent;
+
 	WrestlingMove m_move;
+	public WrestlingMove Move {
+		get { return m_move; }
+	}
 
 	public MatchTurn(WrestlingMatch match, Wrestler performer, Wrestler opponent, WrestlingMove move) {
 		m_match = match;

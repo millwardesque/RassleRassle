@@ -102,17 +102,27 @@ public class Wrestler : MonoBehaviour {
 		Position = WrestlerPosition.Standing;
     }
 
-	public List<WrestlingMove> GetMoves(Wrestler opponent) {
+	public List<WrestlingMove> GetMoves(WrestlingMatch match, Wrestler opponent) {
 		List<WrestlingMove> moves = new List<WrestlingMove> ();
 		foreach (WrestlingMove move in m_moves) {
-			bool wrestlerIsInRightPosition = move.StartingPosition == WrestlerPosition.Any || move.StartingPosition == WrestlerPosition.Same || move.StartingPosition == m_position;
-			bool opponentIsInRightPosition = move.OpponentStartingPosition == WrestlerPosition.Any || move.OpponentStartingPosition == WrestlerPosition.Same || move.OpponentStartingPosition == opponent.Position;
+			if (move.PrerequisiteEvaluators == null || move.PrerequisiteEvaluators.Length == 0) {
+				Debug.LogError (string.Format ("Move {0} has no prerequisite evaluators", move.MoveName));
+				continue;
+			}
 
-			if (wrestlerIsInRightPosition && opponentIsInRightPosition) {
+			bool isValid = true;
+			foreach (MovePrerequisite prereq in move.PrerequisiteEvaluators) {
+				if (!prereq.IsValid(match, this, opponent, move)) {
+					isValid = false;
+					break;
+				}
+			}
+
+			if (isValid) {
 				moves.Add (move);
 			}
 		}
 
-	return moves;
+		return moves;
 	}
 }
