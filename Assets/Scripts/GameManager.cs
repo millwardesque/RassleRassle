@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
 		get { return m_match; }
 	}
 
+    public CrowdData crowdData;
     public WrestlerData wrestler1;
     public WrestlerData wrestler2;
     public Wrestler wrestlerPrefab;
@@ -42,6 +43,8 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
+        m_crowd.InitializeData(crowdData);
+
         Wrestler matchWrestler1 = GameObject.Instantiate<Wrestler>(wrestlerPrefab);
 		matchWrestler1.InitializeData(wrestler1);
 
