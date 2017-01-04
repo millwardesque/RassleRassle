@@ -21,6 +21,22 @@ public class WrestlingMatch
 		get { return m_currentWrestler; }
 	}
 
+	Wrestler m_winner;
+	public Wrestler Winner {
+		get { return m_winner; }
+		set { 
+			m_winner = value;
+		}
+	}
+
+	Wrestler m_loser;
+	public Wrestler Loser {
+		get { return m_loser; }
+		set {
+			m_loser = value;
+		}
+	}	
+
 	float m_matchOffense = 0f;
 	public float MatchOffense
 	{
@@ -58,8 +74,8 @@ public class WrestlingMatch
 	}
 
 	public void RunTurn(MatchTurn turn) {
-		turn.ExecuteMove ();
 		m_turns.Add (turn);
+		turn.ExecuteMove ();
 
 		GameManager.Instance.Messenger.SendMessage (this, "TurnEnded", this);
 

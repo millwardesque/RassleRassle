@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
+		Messenger.AddListener ("MatchEnded", OnMatchEnded);
+
         m_crowd.InitializeData(crowdData);
 
         Wrestler matchWrestler1 = GameObject.Instantiate<Wrestler>(wrestlerPrefab);
@@ -54,4 +56,9 @@ public class GameManager : MonoBehaviour {
 		m_match = new WrestlingMatch (matchWrestler1, matchWrestler2);
 		m_match.StartMatch ();
     }
+
+	private void OnMatchEnded(Message message) {
+		WrestlingMatch match = message.data as WrestlingMatch;
+		Debug.Log ("The match is over! The winner is " + match.Winner.WrestlerName);
+	}
 }

@@ -28,7 +28,7 @@ public class MatchTurn
 		float crowdInterestMultiplier = matchCrowd.IsExcited() ? 1.5f : 1f;
 		matchCrowd.CrowdInterest += crowdInterestMultiplier * (m_move.CrowdChange);
 
-		if (matchCrowd.idealMatchLength < m_match.Turns.Count) {
+		if (matchCrowd.idealMatchLength <= m_match.Turns.Count) {
 			matchCommentary.AddMessage ("The crowd is getting restless");
 			matchCrowd.CrowdInterest--;
 		}
@@ -51,9 +51,11 @@ public class MatchTurn
 			}
 
 		}
-
-
 		matchCommentary.AddMessage (m_performer.WrestlerName + ": " + m_move.MoveName);
+
+		if (m_move.PostProcessor != null) {
+			m_move.PostProcessor.PostProcess(m_match, m_performer, m_opponent, m_move);
+		}
 	}
 }
 

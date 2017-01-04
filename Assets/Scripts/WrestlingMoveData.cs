@@ -16,4 +16,5 @@ public class WrestlingMoveData : ScriptableObject {
 	public WrestlerPosition opponentEndingPosition = WrestlerPosition.Same;
 
 	public MovePrerequisite[] prerequisiteEvaluators;
+	public MovePostProcessor postProcessor;
 }
