@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour {
 		get { return m_match; }
 	}
 
+	MatchScorer m_scorer;
+	public MatchScorer Scorer {
+		get { return m_scorer; }
+	}
+
     public CrowdData crowdData;
     public WrestlerData wrestler1;
     public WrestlerData wrestler2;
@@ -37,6 +42,7 @@ public class GameManager : MonoBehaviour {
             m_messenger = new MessageManager();
 			m_crowd = GetComponent<Crowd> ();
 			m_commentary = GetComponent<Commentary> ();
+			m_scorer = GetComponent<MatchScorer> ();
         } else {
             Destroy(this.gameObject);
         }

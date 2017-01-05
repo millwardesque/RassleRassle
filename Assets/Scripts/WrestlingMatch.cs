@@ -35,7 +35,7 @@ public class WrestlingMatch
 		set {
 			m_loser = value;
 		}
-	}	
+	}
 
 	float m_matchOffense = 0f;
 	public float MatchOffense
