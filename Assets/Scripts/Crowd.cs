@@ -40,6 +40,8 @@ public class Crowd : MonoBehaviour {
         interestDecay = data.interestDecay;
         minExcitementThreshold = data.minExcitementThreshold;
         crowdLocation = data.crowdLocation;
+
+		CrowdInterest = 0f;
     }
 }
 
