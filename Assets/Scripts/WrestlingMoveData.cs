@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Move", menuName ="Game Data/Move")]
 public class WrestlingMoveData : ScriptableObject {
     public string moveName;
+	public WrestlingMoveCategory category = WrestlingMoveCategory.None;
 
     public float staminaChange;
     public float crowdChange;

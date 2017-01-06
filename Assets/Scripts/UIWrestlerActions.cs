@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIWrestlerActions : MonoBehaviour {
 	public Button buttonPrefab;
 	public int wrestlerNumber = 1;
+	public Color[] categoryColours;
 
 	void Start() {
 		GameManager.Instance.Messenger.AddListener ("TurnEnded", RefreshActionList);
@@ -15,14 +16,21 @@ public class UIWrestlerActions : MonoBehaviour {
 	public void CreateMoveList(Wrestler wrestler, List<WrestlingMove> moves, bool makeInactive) {
 		ClearMoveList ();
 		moves.Sort (delegate (WrestlingMove x, WrestlingMove y) {
-			if (x.MoveName == null && y.MoveName == null) return 0;
-			else if (x.MoveName == null) return -1;
-			else if (y.MoveName == null) return 1;
-			else return x.MoveName.CompareTo(y.MoveName);
+			if (x.Category == y.Category) {
+				return x.MoveName.CompareTo(y.MoveName);
+			}
+			else {
+				return x.Category.CompareTo(y.Category);
+			}
 		});
 
 		foreach (WrestlingMove move in moves) {
 			Button moveButton = GameObject.Instantiate<Button> (buttonPrefab, this.transform);
+
+			if (categoryColours.Length > (int)move.Category) {
+				moveButton.GetComponent<Image> ().color = categoryColours [(int)move.Category];
+			}
+
 			moveButton.GetComponentInChildren<Text> ().text = move.MoveName;
 			moveButton.onClick.AddListener(delegate { 
 				GameManager.Instance.Match.SetWrestlerMove(move);

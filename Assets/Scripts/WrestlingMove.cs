@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum WrestlingMoveCategory {
+	None,
+	Offensive,
+	Defensive,
+	Transitional,
+	Pinning
+};
+
 public class WrestlingMove {
     string m_name;
     public string MoveName
@@ -23,6 +32,12 @@ public class WrestlingMove {
     bool m_isOffensive;
 	public bool IsOffensive {
 		get { return m_isOffensive; }
+	}
+
+	WrestlingMoveCategory m_category = WrestlingMoveCategory.None;
+	public WrestlingMoveCategory Category {
+		get { return m_category; }
+		set { m_category = value; }
 	}
 
 	WrestlerPosition m_startingPosition;
@@ -67,6 +82,7 @@ public class WrestlingMove {
         m_crowdChange = data.crowdChange;
 		m_isOffensive = data.isOffensive;
 
+		Category = data.category;
 		m_startingPosition = data.startingPosition;
 		m_opponentStartingPosition = data.opponentStartingPosition;
 		m_endingPosition = data.endingPosition;
