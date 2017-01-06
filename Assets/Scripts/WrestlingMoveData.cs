@@ -16,6 +16,9 @@ public class WrestlingMoveData : ScriptableObject {
 	public WrestlerPosition endingPosition = WrestlerPosition.Same;
 	public WrestlerPosition opponentEndingPosition = WrestlerPosition.Same;
 
+	public bool isReversalOnly = false;
+	public WrestlingMoveData[] reversalOptions;
+
 	public MovePrerequisite[] prerequisiteEvaluators;
 	public MovePostProcessor postProcessor;
 }

@@ -76,6 +76,17 @@ public class WrestlingMove {
 		set { m_postProcessor = value; }
 	}
 
+	bool m_isReversalOnly;
+	public bool IsReversalOnly {
+		get { return m_isReversalOnly; }
+		set { m_isReversalOnly = value; }
+	}
+
+	WrestlingMove[] m_reversalOptions;
+	public WrestlingMove[] ReversalOptions {
+		get { return m_reversalOptions; }
+	}
+
     public void InitializeData(WrestlingMoveData data) {
         MoveName = data.moveName;
         m_staminaChange = data.staminaChange;
@@ -89,5 +100,14 @@ public class WrestlingMove {
 		m_opponentEndingPosition = data.opponentEndingPosition;
 		m_prerequisiteEvaluators = data.prerequisiteEvaluators;
 		m_postProcessor = data.postProcessor;
+
+		IsReversalOnly = data.isReversalOnly;
+		if (data.reversalOptions != null && data.reversalOptions.Length > 0) {
+			m_reversalOptions = new WrestlingMove[data.reversalOptions.Length];
+			for (int i = 0; i < data.reversalOptions.Length; ++i) {
+				m_reversalOptions [i] = new WrestlingMove ();
+				m_reversalOptions [i].InitializeData(data.reversalOptions [i]);
+			}
+		}
     }
 }

@@ -4,8 +4,16 @@ using System.Collections;
 public class MatchTurn
 {
 	WrestlingMatch m_match;
+
 	Wrestler m_performer;
+	public Wrestler Performer {
+		get { return m_performer; }
+	}
+
 	Wrestler m_opponent;
+	public Wrestler Opponent {
+		get { return m_opponent; }
+	}
 
 	WrestlingMove m_move;
 	public WrestlingMove Move {

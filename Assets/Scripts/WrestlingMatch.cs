@@ -55,6 +55,12 @@ public class WrestlingMatch
 		get { return m_turns; }
 	}
 
+	public MatchTurn LastTurn {
+		get { 
+			return (m_turns.Count > 0 ? m_turns [m_turns.Count - 1] : null);
+		}
+	}
+
 	public WrestlingMatch(Wrestler wrestler1, Wrestler wrestler2) {
 		m_wrestler1 = wrestler1;
 		m_wrestler2 = wrestler2;
@@ -102,6 +108,22 @@ public class WrestlingMatch
 		} else {
 			Debug.LogWarning ("Move not set for active wrestler.");
 		}
+	}
+
+	public MatchTurn GetOpponentLastTurn(Wrestler wrestler) {
+		MatchTurn turn = null;
+		if (m_turns == null) {
+			return null;
+		}
+
+		for (int i = m_turns.Count - 1; i >= 0; i--) {
+			if (m_turns [i].Performer != wrestler) {
+				turn = m_turns [i];
+				break;
+			}
+		}
+
+		return turn;
 	}
 }
 

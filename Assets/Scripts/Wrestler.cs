@@ -105,6 +105,7 @@ public class Wrestler : MonoBehaviour {
 
 	public List<WrestlingMove> GetMoves(WrestlingMatch match, Wrestler opponent) {
 		List<WrestlingMove> moves = new List<WrestlingMove> ();
+
 		foreach (WrestlingMove move in m_moves) {
 			if (move.PrerequisiteEvaluators == null || move.PrerequisiteEvaluators.Length == 0) {
 				Debug.LogError (string.Format ("Move {0} has no prerequisite evaluators", move.MoveName));
@@ -119,7 +120,20 @@ public class Wrestler : MonoBehaviour {
 				}
 			}
 
+			// Ignore reversal moves.
+			if (move.IsReversalOnly) {
+				isValid = false;
+			}
+
 			if (isValid) {
+				moves.Add (move);
+			}
+		}
+
+		// Load reversals.
+		MatchTurn lastTurn = match.GetOpponentLastTurn(this);
+		if (lastTurn != null && lastTurn.Move.ReversalOptions != null) {
+			foreach (WrestlingMove move in lastTurn.Move.ReversalOptions) {
 				moves.Add (move);
 			}
 		}
