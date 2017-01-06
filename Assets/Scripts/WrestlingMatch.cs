@@ -84,6 +84,7 @@ public class WrestlingMatch
 		turn.ExecuteMove ();
 
 		GameManager.Instance.Messenger.SendMessage (this, "TurnEnded", this);
+		GameManager.Instance.Messenger.SendMessage (this, "OnMatchLengthChange", string.Format("{0} / {1}", Turns.Count, GameManager.Instance.MatchCrowd.idealMatchLength));
 
 		m_nextMove = null;
 		Wrestler opponent = (CurrentWrestler == m_wrestler1 ? m_wrestler2 : m_wrestler1);
