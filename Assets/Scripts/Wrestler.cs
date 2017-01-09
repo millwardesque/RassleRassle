@@ -98,7 +98,7 @@ public class Wrestler : MonoBehaviour {
     public void StartMatch(int wrestlerNumber) {
         m_wrestlerNumber = wrestlerNumber;
 
-        CurrentStamina = 100f;
+		CurrentStamina = 100f * m_stamina;
 		WrestlerName = WrestlerName;	// Used to trigger a UI refresh.
 		Position = WrestlerPosition.Standing;
     }
