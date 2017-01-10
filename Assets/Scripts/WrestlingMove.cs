@@ -87,6 +87,11 @@ public class WrestlingMove {
 		get { return m_reversalOptions; }
 	}
 
+	string[] m_commentaryOptions;
+	public string[] CommentaryOptions {
+		get { return m_commentaryOptions; }
+	}
+
     public void InitializeData(WrestlingMoveData data) {
         MoveName = data.moveName;
         m_staminaChange = data.staminaChange;
@@ -109,5 +114,21 @@ public class WrestlingMove {
 				m_reversalOptions [i].InitializeData(data.reversalOptions [i]);
 			}
 		}
+
+		if (data.commentaryOptions != null && data.commentaryOptions.Length > 0) {
+			m_commentaryOptions = new string[data.commentaryOptions.Length];
+			for (int i = 0; i < data.commentaryOptions.Length; ++i) {
+				m_commentaryOptions [i] = data.commentaryOptions [i];
+			}
+		}
     }
+
+	public string GetRandomCommentary() {
+		if (m_commentaryOptions != null && m_commentaryOptions.Length > 0) {
+			int index = Random.Range (0, m_commentaryOptions.Length);
+			return m_commentaryOptions [index];
+		} else {
+			return "";
+		}
+	}
 }

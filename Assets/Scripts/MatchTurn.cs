@@ -59,7 +59,8 @@ public class MatchTurn
 			}
 
 		}
-		matchCommentary.AddMessage (m_performer.WrestlerName + ": " + m_move.MoveName);
+
+		matchCommentary.GenerateMessage (m_match, this);
 
 		if (m_move.PostProcessor != null) {
 			m_move.PostProcessor.PostProcess(m_match, m_performer, m_opponent, m_move);

@@ -21,4 +21,6 @@ public class WrestlingMoveData : ScriptableObject {
 
 	public MovePrerequisite[] prerequisiteEvaluators;
 	public MovePostProcessor postProcessor;
+
+	public string[] commentaryOptions;
 }
